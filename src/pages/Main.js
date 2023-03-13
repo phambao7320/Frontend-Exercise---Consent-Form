@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -10,19 +10,29 @@ import { checkStatus } from "../utils";
 const MainContent = () => {
   const { infoUser } = useContext(AppMainContext);
   const { languageUser } = infoUser;
-  const [isPlayRecord, setIsPlayRecord] = useState(false);
   const audioRef = useRef();
+  const consentText = useMemo(
+    () =>
+      new SpeechSynthesisUtterance(
+        `You understand that by using the site or site services, you agree to be
+    bound by this agreement. If you do not accept this agreement in it's
+    entirety, you must not access or use the site or the site services.
+    
+    Do you agree to this agreement? Please respond by saying "Yes" or "No".
+    `
+      ),
+    []
+  );
 
-  const {
-    transcript,
-    interimTranscript,
-    finalTranscript,
-    resetTranscript,
-    listening,
-  } = useSpeechRecognition();
+  const { transcript, resetTranscript, listening } = useSpeechRecognition();
 
-  const { status, startRecording, stopRecording, mediaBlobUrl } =
-    useReactMediaRecorder({ audio: true });
+  useEffect(() => {
+    speechSynthesis.speak(consentText);
+  }, [consentText]);
+
+  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder(
+    { audio: true }
+  );
 
   const startListen = () => {
     if (!listening) {
@@ -43,7 +53,13 @@ const MainContent = () => {
 
   const handleRender = () => {
     if (listening) {
-      return <img src="https://i.gifer.com/Nt6v.gif" className="w-10" />;
+      return (
+        <img
+          src="https://i.gifer.com/Nt6v.gif"
+          alt="icon/gif"
+          className="w-10"
+        />
+      );
     } else {
       if (transcript) {
         return (

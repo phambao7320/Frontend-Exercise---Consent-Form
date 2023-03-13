@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { AppMainContext } from "../../context/app_context";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,6 @@ const FormUser = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     history("/main");
-    console.log(infoUser);
   };
 
   const { nameUser, languageUser } = infoUser;

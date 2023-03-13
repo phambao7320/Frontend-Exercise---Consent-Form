@@ -5,10 +5,8 @@ const checkStatus = (language, string) => {
     (string.toLowerCase() === "yes" && language === "en-GB") ||
     (string.toLowerCase() === "oui" && language === "fr-FR")
   ) {
-    console.log("TRUE");
     return true;
   } else {
-    console.log("FALSE");
     return false;
   }
 };
