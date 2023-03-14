@@ -1,9 +1,11 @@
-import React from "react";
-import ItemConsent from "../components/item";
+import { useState } from "react";
+import { ConsentDetail } from "../components/Consent";
+import { PropItemConsent } from "../types";
 
 const ConsentPage = () => {
-  const data = JSON.parse(localStorage.getItem("listConsent")) || [];
-
+  const [listConsent, setListConsent] = useState<any>(
+    JSON.parse(localStorage.getItem("listConsent") || "{}") || []
+  );
   return (
     <div className="mx-[200px]">
       <h1 className="text-3xl text-center my-5">All Consent</h1>
@@ -16,14 +18,14 @@ const ConsentPage = () => {
         </div>
       </div>
 
-      {data.map((item, index) => (
+      {listConsent.map((item: PropItemConsent, index: number) => (
         <div
           key={index}
           className={`${
             index % 2 === 0 ? " bg-slate-200" : " bg-slate-50"
           } rounded-lg`}
         >
-          <ItemConsent item={item} />
+          <ConsentDetail item={item} />
         </div>
       ))}
     </div>

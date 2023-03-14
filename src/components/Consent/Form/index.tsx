@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
-import { AppMainContext } from "../../context/app_context";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ICON_NEXT } from "../../../assets";
+import { AppMainContext } from "../../../contexts";
 
-const FormUser = () => {
-  const { infoUser, setInfoUser } = useContext(AppMainContext);
-  const history = useNavigate();
+const ConsentForm = () => {
+  const { infoUser, setInfoUser, setShowConsent } = useContext(AppMainContext);
 
-  const inputChange = (event) => {
+  const inputChange = (event: any) => {
     event.preventDefault();
     setInfoUser({
       ...infoUser,
@@ -14,12 +13,12 @@ const FormUser = () => {
     });
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: any) => {
     event.preventDefault();
-    history("/main");
+    setShowConsent(true);
   };
 
-  const { nameUser, languageUser } = infoUser;
+  const { nameUser, languageSelect } = infoUser;
 
   return (
     <div>
@@ -43,8 +42,8 @@ const FormUser = () => {
             <select
               className="w-full my-3 px-2 border h-10"
               onChange={inputChange}
-              value={languageUser}
-              name="languageUser"
+              value={languageSelect}
+              name="languageSelect"
             >
               <option value="en-GB">English</option>
               <option value="fr-FR">France</option>
@@ -56,21 +55,7 @@ const FormUser = () => {
             type="submit"
             className="px-3 py-2 bg-slate-400 rounded-md flex items-center justify-center"
           >
-            Next
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-4 h-4 translate-y-[1px]"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-              />
-            </svg>
+            Next <ICON_NEXT />
           </button>
         </div>
       </form>
@@ -78,4 +63,4 @@ const FormUser = () => {
   );
 };
 
-export default FormUser;
+export default ConsentForm;

@@ -1,10 +1,7 @@
-import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import AppMainContextProvider from "./context/app_context";
-import ConsentPage from "./pages/Consent";
-import HomePage from "./pages/Home";
-import MainContent from "./pages/Main";
+import AppMainContextProvider from "./contexts";
+import { HomePage, ConsentPage } from "./pages";
 
 const App = () => {
   return (
@@ -14,7 +11,6 @@ const App = () => {
           <Navbar />
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/main" element={<MainContent />} />
             <Route path="/consent" element={<ConsentPage />} />
           </Routes>
         </BrowserRouter>
